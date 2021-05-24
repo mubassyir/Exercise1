@@ -16,19 +16,19 @@
 
     <style name="textHeadline">
         <item name="android:textSize">25sp</item>
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">italic</item>
     </style>
 
     <style name="textCoutingTime">
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">60sp</item>
     </style>
 
     <style name="myBtn">
         <item name="cornerRadius">20dp</item>
-        <item name="android:textColor">@color/purple_200</item>
+        <item name="android:textColor">@color/white</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">18sp</item>
     </style>
