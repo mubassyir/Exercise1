@@ -1,14 +1,17 @@
 package com.mubassyir.exercise1
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.BitmapFactory
+import android.media.RingtoneManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.mubassyir.exercise1.CountDownIntentService.Companion.COUNTDOWN_BR
 import com.mubassyir.exercise1.CountDownIntentService.Companion.EXTRA_COUNT
 import com.mubassyir.exercise1.CountDownIntentService.Companion.EXTRA_STATUS
@@ -20,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
+        private const val NOTIFICATION_ID = 3
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -78,11 +82,24 @@ class MainActivity : AppCompatActivity() {
     private fun updateUI(intent: Intent) {
         intent.extras?.let{
             binding.tvCountTime.text = intent.getStringExtra(EXTRA_COUNT)
-            if(intent.getBooleanExtra(EXTRA_STATUS,false)){
-                Toast.makeText(this,"Counting is Up !",Toast.LENGTH_SHORT).show()
+            if(intent.getBooleanExtra(EXTRA_STATUS, false)){
+                showNotofication()
                 binding.btnStartPause.text = getString(R.string.start)
                 binding.btnReset.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun showNotofication() {
+        val mNotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val mBuilder = NotificationCompat.Builder(this, "CHANNEL_ID")
+                .setSmallIcon(R.drawable.logo_eduwork)
+                .setContentTitle(resources.getString(R.string.app_name))
+                .setContentText(resources.getString(R.string.notif_text))
+                .setSubText(resources.getString(R.string.notif_title))
+                .setSound(soundUri);
+        val notification = mBuilder.build()
+        mNotificationManager.notify(NOTIFICATION_ID, notification)
     }
 }
